@@ -1,0 +1,4 @@
+TODO list for bench_runner utility:
+1 - Integrate Genetic Search algorithm
+2 - Run the default configuration at the beginning and then produce the speedup result
+3 - 
