@@ -251,11 +251,11 @@ class SGERunner(Runner):
                     continue
                 
                 found = 1
-                start_time = time.strptime(values[6] , "%H:%M:%S")                        
-                stop_time = time.strftime( '%H:%M:%S', time.localtime(time.mktime(start_time) + 
-                            self.__sge.sqe_kill_after.currValue()) )
-                curr_time = time.strftime( '%H:%M:%S', time.localtime() )
-
+                curr = time.strftime("%d|%b|%Y@%H:%M:%S", time.gmtime())
+                start_time = time.strptime(curr.split('@')[0]+'@'+values[6] , "%d|%b|%Y@%H:%M:%S")
+                stop_time =  time.localtime(time.mktime(start_time) + 
+                            self.__sge.sqe_kill_after.currValue())
+                curr_time = time.localtime()
                 if values[4] == 'r' and curr_time > stop_time:
                    print '\t[monitor()]: Job {0} stuck -> KILLED'.format(jobid)
                    os.system( 'qdel {0} &'.format(jobid) )
